@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: prod
+  name: team-burnham
   labels:
     mesh: dj-app
     appmesh.k8s.aws/sidecarInjectorWebhook: enabled
@@ -20,7 +20,7 @@ apiVersion: appmesh.k8s.aws/v1beta2
 kind: VirtualNode
 metadata:
   name: dj
-  namespace: prod
+  namespace: team-burnham
 spec:
   podSelector:
     matchLabels:
@@ -45,15 +45,15 @@ spec:
           name: metal
   serviceDiscovery:
     dns:
-      hostname: dj.prod.svc.cluster.local
+      hostname: dj.team-burnham.svc.cluster.local
 ---
 apiVersion: appmesh.k8s.aws/v1beta2
 kind: VirtualService
 metadata:
   name: jazz
-  namespace: prod
+  namespace: team-burnham
 spec:
-  awsName: jazz.prod.svc.cluster.local
+  awsName: jazz.team-burnham.svc.cluster.local
   provider:
     virtualRouter:
       virtualRouterRef:
@@ -63,9 +63,9 @@ apiVersion: appmesh.k8s.aws/v1beta2
 kind: VirtualService
 metadata:
   name: metal
-  namespace: prod
+  namespace: team-burnham
 spec:
-  awsName: metal.prod.svc.cluster.local
+  awsName: metal.team-burnham.svc.cluster.local
   provider:
     virtualRouter:
       virtualRouterRef:
@@ -75,7 +75,7 @@ apiVersion: appmesh.k8s.aws/v1beta2
 kind: VirtualRouter
 metadata:
   name: jazz-router
-  namespace: prod
+  namespace: team-burnham
 spec:
   listeners:
     - portMapping:
@@ -96,7 +96,7 @@ apiVersion: appmesh.k8s.aws/v1beta2
 kind: VirtualRouter
 metadata:
   name: metal-router
-  namespace: prod
+  namespace: team-burnham
 spec:
   listeners:
     - portMapping:
@@ -117,7 +117,7 @@ apiVersion: appmesh.k8s.aws/v1beta2
 kind: VirtualNode
 metadata:
   name: jazz-v1
-  namespace: prod
+  namespace: team-burnham
 spec:
   podSelector:
     matchLabels:
@@ -136,13 +136,13 @@ spec:
         intervalMillis: 5000
   serviceDiscovery:
     dns:
-      hostname: jazz-v1.prod.svc.cluster.local
+      hostname: jazz-v1.team-burnham.svc.cluster.local
 ---
 apiVersion: appmesh.k8s.aws/v1beta2
 kind: VirtualNode
 metadata:
   name: metal-v1
-  namespace: prod
+  namespace: team-burnham
 spec:
   podSelector:
     matchLabels:
@@ -161,13 +161,13 @@ spec:
         intervalMillis: 5000
   serviceDiscovery:
     dns:
-      hostname: metal-v1.prod.svc.cluster.local
+      hostname: metal-v1.team-burnham.svc.cluster.local
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: jazz
-  namespace: prod
+  namespace: team-burnham
   labels:
     app: jazz
 spec:
@@ -179,7 +179,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: metal
-  namespace: prod
+  namespace: team-burnham
   labels:
     app: metal
 spec:
