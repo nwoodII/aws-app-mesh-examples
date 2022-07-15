@@ -70,6 +70,8 @@ spec:
     virtualRouter:
       virtualRouterRef:
         name: metal-router
+  hosts:
+  - "foo.com"
 ---
 apiVersion: appmesh.k8s.aws/v1beta2
 kind: VirtualRouter
